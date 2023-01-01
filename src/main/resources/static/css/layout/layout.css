@@ -1,0 +1,18 @@
+@charset "ISO-8859-1";
+.sidebar{
+	position:fixed;
+	display: block;
+	top: 58px;
+	bottom: 0px;
+	left: 0px;
+}
+
+.main{
+	position:fixed;
+	display: block;
+	top: 58px;
+	bottom: 0px;
+	padding-left: 20px;
+	overflow-y: auto;
+	height: calc(100vh - 58px);
+}

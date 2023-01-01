@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate= "~{admin/layout/layout}">
+<head>
+	<meta charset="utf-8"> 
+	<title>Departement</title>
+</head>
+	<body>
+		<div layout:fragment="content">
+			<div class="contentheader border-bottom">
+				<h2 class="text-center">Liste des Categories</h2>
+				<p ><a class="btn btn-success" th:href="@{/categorie/new}">Nouveau</a></p>
+		   </div>
+		   <div>
+				<div class="card-body">
+					<table class="table table-striped">
+					      <thead>
+					        <tr>
+					        	<th>Nom</th>
+					        	<th>Description</th>
+					        	<th>Action</th> 
+					        </tr>
+					      </thead>
+					      <tbody>
+					       		<tr th:each="categorie : ${categorieList}">
+					       			<td th:text="${categorie.nom}">Nom</td>
+					       			<td th:text="${categorie.description}">Description</td>
+					       			<td>
+					       			     <a th:href="@{/categorie/edit/{id}(id=${categorie.id})}" class= "text-primary">
+					       			         <i class = "fas fa-pencil-alt"> </i> 
+					       			     </a>
+					       			     
+					       			     <a th:href="@{/categorie/delete/{id}(id=${categorie.id})}" class= "text-danger"
+					       			     onclick= "return confirm('Voulez vous vraiment supprimer?')">
+					       			     
+					       			         <i class = "fas fa-trash-alt"></i>
+					       			     </a>
+					       			</td>
+					       		</tr>
+					      </tbody>
+					</table>
+					
+			<!--  <div  th:if="${totalPages > 1}" >-->
+					<nav aria-label= "Navigation">
+					       <ul class="pagination justify-content-center flex-wrap">
+					            <li th:classappend="${pageCourante > 1 ? 'page-item': 'page-item disabled'}" >
+				                 <a class="page-link" aria-label="Previous" th:if="${pageCourante > 1}" 
+									th:href="@{'/categorie/list/page/' + ${pageCourante -1}}"
+									th:text="'&laquo;'"></a>  
+								 <span aria-hidden="true" th:unless="${pageCourante > 1}"></span>
+								 
+				                </li>
+				               <th:block th:if="${totalPages <= 10}">
+					              <li th:each="i : ${#numbers.sequence(1, totalPages)}" 
+										th:class="${pageCourante != i ? 'page-item': 'page-item active'}">
+											<a th:href="@{'/categorie/list/page/' + ${i}}" class="page-link">[[${i}]]</a>
+								  </li>
+							  </th:block>
+							   <th:block th:if="${totalPages > 10}">
+								<th:block th:if="${pageCourante <= 5 || pageCourante > page.getTotalPages() - 4 }">
+									<li th:each="i : ${#numbers.sequence(1, 5)}" 
+										th:class="${pageCourante != i ? 'page-item': 'page-item active'}">
+											<a th:href="@{'/categorie/list/page/' + ${i}}" class="page-link">[[${i}]]</a>
+									</li>
+										<a th:href="@{'/categorie/list/page/' + 6}" class="page-link" th:text="${'...'}">...</a>
+									<li th:each="i : ${#numbers.sequence(page.getTotalPages() - 4, totalPages)}" 
+										th:class="${pageCourante != i ? 'page-item': 'page-item active'}">
+										<a th:href="@{'/categorie/list/page/' + ${i}}" class="page-link">[[${i}]]</a>
+									</li>
+
+								</th:block>
+								<th:block th:if="${pageCourante > 5 && pageCourante < page.getTotalPages() - 4}">
+									<a th:href="@{'/categorie/list/page/' + ${page.getNumber() - 4}}" class="page-link" th:text="${'...'}">...</a>
+										<li th:each="i : ${#numbers.sequence(page.getNumber() - 4, page.getNumber() + 4)}" 
+											th:class="${pageCourante != i ? 'page-item': 'page-item active'}">
+											<a th:href="@{'/categorie/list/page/' + ${i}}" class="page-link">[[${i}]]</a>
+										</li>
+									
+									<a th:href="@{'/categorie/list/page/' + ${page.getNumber() + 5}}" class="page-link" th:text="${'...'}">...</a>
+								</th:block>
+							</th:block>
+							<li th:classappend="${pageCourante < totalPages ? 'page-item': 'page-item disabled'}">
+								<a class="page-link" aria-label="Next" th:if="${pageCourante < totalPages}" 
+								th:href="@{'/categorie/list/page/' + ${page.getNumber()  + 1}}"
+								th:text="'&raquo;'">&raquo;</a>
+								<span aria-hidden="true" th:unless="${pageCourante < totalPages}"></span>
+							</li>
+							<li th:classappend="${pageCourante < totalPages ? 'page-item': 'page-item disabled'}">
+								<a class="page-link" th:if="${pageCourante < totalPages}" 
+								th:href="@{'/categorie/list/page/' + ${totalPages}}"
+								th:text="Dernier">Dernier</a>
+								<span th:unless="${pageCourante < totalPages}"></span>
+							</li>
+					       </ul>
+					</nav>
+					
+				</div>
+			</div>
+		</div>
+	<!--  </div>-->
+	</body>
+</html>

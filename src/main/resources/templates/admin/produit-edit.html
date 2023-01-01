@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate= "~{admin/layout/layout}">
+<head>
+	<meta charset="utf-8"> 
+	<title>Produit</title>
+</head>
+	<body>
+		<div layout:fragment="content">
+			<div class="contentheader border-bottom">
+				<h2>Modifier Un Produit</h2>
+				
+		   </div>
+		          <form action="" th:action="@{/produit/update/{id}(id=${produit.id})}"  method="post" th:object= "${produit}">
+		          <div class= "form-row mb-3">
+			          <label class = "form-label">Nom</label>
+			          <input class="form-control" type="text" placeholder="" th:field="*{name}">
+		          </div>
+		          
+		          <div>
+			          <label class="form-label">Description</label>
+			          <input class="form-control" type="text" placeholder="" th:field="*{description}">
+		          </div>
+		          
+		          <div>
+			          <label class="form-label">Prix</label>
+			          <input class="form-control" type="text" placeholder="" th:field="*{price}">
+		          </div>
+		          
+		           <div class="form-row mb-3">
+			              
+					          <label class="form-label">Categorie</label>
+					          <select class= "form-select selectpicker" th:field="*{categorie}" >
+					                   <option th:each="categorie: ${categorie}" th:value= "${categorie.id}"
+					                            th:text="${categorie.nom}">
+					                            
+					                   </option>
+					          </select>
+					          
+				          </div>
+		          
+		              <button type="submit" class="btn btn-primary">Enregistrer</button>
+		              <a th:href="@{/produit/list}"  type="submit" class="btn btn-danger">Annuler</a>
+		          </form>
+		   
+			</div>
+		</body>
+</html>

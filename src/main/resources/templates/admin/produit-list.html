@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate= "~{admin/layout/layout}">
+<head>
+	<meta charset="utf-8"> 
+	<title>Categories</title>
+</head>
+	<body>
+		<div layout:fragment="content">
+			<div class="contentheader border-bottom">
+				<h2 class="text-center">Liste Des Produits </h2>
+				<p> <a class="btn btn-success" th:href="@{/produit/new}">Nouveau</a></p>
+				
+		   </div>
+		   <div>
+				<div class="card-body">
+					<table class="table table-striped">
+					      <thead>
+					        <tr>
+					        	<th>Id</th>
+					        	<th>Nom</th>
+					        	<th>Description</th>
+					        	<th>Prix</th>
+					        	<th>Categorie</th>
+					        	<th>Action</th>
+					        	
+					        </tr>
+					      </thead>
+					      <tbody>
+					       		<tr th:each="produit : ${produitList}">
+					       		 <td th:text="${produit.id}">Nom</td>
+					       			<td th:text="${produit.name}">Nom</td>
+					       			<td th:text="${produit.description}">Description</td>
+					       			<td th:text="${produit.price}">price</td>
+					       			<td th:text="${produit.categorie.nom}">price</td>
+					       			
+					       			<td>
+					       			     <a th:href="@{/produit/edit/{id}(id=${produit.id})}" class= "text-primary">
+					       			         <i class = "fas fa-pencil-alt"> </i> 
+					       			     </a>
+					       			     
+					       			     <a th:href="@{/produit/delete/{id}(id=${produit.id})}" class= "text-danger"
+					       			     onclick= "return confirm('Voulez vous vraiment supprimer?')">
+					       			     
+					       			         <i class = "fas fa-trash-alt"></i>
+					       			     </a>
+					       			</td>
+					       			
+					       		</tr>
+					      </tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
