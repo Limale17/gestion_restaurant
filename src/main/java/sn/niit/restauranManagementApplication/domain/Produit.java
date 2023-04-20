@@ -27,24 +27,33 @@ public class Produit
 	private String description;
 	
 	@NotNull(message="Le nom du produit est obligatoire.") 
-	@NotEmpty(message="Le nom du produit est obligatoire.")
-	private double price;
+	private Double price;
+	
+	private String image;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey= @ForeignKey(name="categorie_id"), name="categorie_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Categorie categorie;
 	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(foreignKey= @ForeignKey(name="orderItems.id"), name="orderItems.id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private OrderItems orderItems;
+	
 	
 	
 	public  Produit() {}
 
-	public Produit(long id, String name, String description, double price) {
+	public Produit(long id, String name, String description, Double price,String image) 
+	{
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.image = image;
 	}
 	
 
@@ -72,11 +81,11 @@ public class Produit
 		this.description = description;
 	}
 
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	
@@ -87,6 +96,24 @@ public class Produit
 
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
+	}
+	
+	
+	
+	public OrderItems getOrderItems () {
+		return orderItems;
+	}
+
+	public void setOrderItems (OrderItems order) {
+		this.orderItems = order;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	@Override

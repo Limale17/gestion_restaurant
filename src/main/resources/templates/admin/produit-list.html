@@ -17,7 +17,7 @@
 					<table class="table table-striped">
 					      <thead>
 					        <tr>
-					        	<th>Id</th>
+					        	<th>Id</th> 
 					        	<th>Nom</th>
 					        	<th>Description</th>
 					        	<th>Prix</th>
@@ -28,11 +28,11 @@
 					      </thead>
 					      <tbody>
 					       		<tr th:each="produit : ${produitList}">
-					       		 <td th:text="${produit.id}">Nom</td>
+					       		 <td th:text="${produit.id}">Id</td>
 					       			<td th:text="${produit.name}">Nom</td>
 					       			<td th:text="${produit.description}">Description</td>
 					       			<td th:text="${produit.price}">price</td>
-					       			<td th:text="${produit.categorie.nom}">price</td>
+					       			<td th:text="${produit.categorie.nom}">Categorie</td>
 					       			
 					       			<td>
 					       			     <a th:href="@{/produit/edit/{id}(id=${produit.id})}" class= "text-primary">

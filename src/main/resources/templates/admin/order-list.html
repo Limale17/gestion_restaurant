@@ -27,19 +27,18 @@
 					        </tr>
 					      </thead>
 					      <tbody>
-					       		<tr th:each="produit : ${orderList}">
-					       		 <td th:text="${order.id}">Numero</td>
-					       			<td th:text="${order.user.prenom}">Client</td>
-					       			<td th:text="${order.date}">Date</td>
-					       			<td th:text="${order.prixTotal}">Prix Total</td>
-					       			<td th:text="${order.etat}">Etat</td>
-					       			
+					       		<tr th:each="orderItems : ${ordetList}">
+					       		 <td th:text="${orderItems.id}">Id</td>
+					       			<td th:text="${orderItems.user.prenom}">Client</td>
+					       			<td th:text="${orderItems.totalPrice}">Prix</td>
+					       			<td th:text="${orderItems.produit.name}">Produits</td>
+					       			<td th:text="${orderItems.date}">Date</td>
 					       			<td>
-					       			     <a th:href="@{/produit/edit/{id}(id=${produit.id})}" class= "text-primary">
+					       			     <a th:href="@{/orderItems/edit/{id}(id=${orderItems.id})}" class= "text-primary">
 					       			         <i class = "fas fa-pencil-alt"> </i> 
 					       			     </a>
 					       			     
-					       			     <a th:href="@{/produit/delete/{id}(id=${produit.id})}" class= "text-danger"
+					       			     <a th:href="@{/orderItems/delete/{id}(id=${order.id})}" class= "text-danger"
 					       			     onclick= "return confirm('Voulez vous vraiment supprimer?')">
 					       			     
 					       			         <i class = "fas fa-trash-alt"></i>

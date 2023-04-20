@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate= "~{admin/layout/layout}">
+<head>
+	<meta charset="utf-8"> 
+	<title>Commande</title>
+</head>
+	<body>
+		<div layout:fragment="content">
+			<div class="contentheader border-bottom">
+				<h2>Passer une commande</h2>
+				
+		   </div>
+		          <form action="" th:action="@{/orderItems/save}" method="post" th:object= "${orderItems}">
+		          <div class= "form-row mb-3">
+			          <label class = "form-label">Client*</label>
+			          <input class = "form-control" type="text" placeholder="client" th:field="*{user}">
+			           <p class="alert alert-danger" th:if="${#fields.hasErrors('user')}" th:errors="*{user.prenom}">Client</p>
+		          </div>
+		          
+		          <div class= "form-row mb-3">
+			          <label class = "form-label">Date</label>
+			          <input class = "form-control" type="text" placeholder="description" th:field="*{date}">
+		          </div>
+		          <div class= "form-row mb-3">
+			          <label class = "form-label">Prix Toal</label>
+			          <input class = "form-control" type="text" placeholder="Prix" th:field="*{totalPrice}">
+			           <p class="alert alert-danger" th:if="${#fields.hasErrors('totalPrice')}" th:errors="*{price}">Prix total</p>
+		          </div>
+		          
+		          
+			              <div class= "form-row mb-3">
+			              
+					          <label class = "form-label">Produits</label>
+					          <select class= "form-select selectpicker" th:field="*{produit}" >
+					          
+					                   <option th:each="produit: ${produits}" th:value= "${produit.id}"
+					                            th:text="${produit.name}">
+					                    </option>
+					          </select>
+					          
+				          </div>
+		          
+		         
+		              <button type="submit" class="btn btn-primary">Envoyer</button>
+		              <a th:href="@{/order/list}"  type="submit" class="btn btn-danger">Annuler</a>
+		          </form>
+		   
+			</div>
+		</body>
+</html>

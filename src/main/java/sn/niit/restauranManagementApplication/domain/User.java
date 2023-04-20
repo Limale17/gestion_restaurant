@@ -5,11 +5,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -17,7 +19,7 @@ public class User
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	private Long userId;
 	
 	private String prenom;
 	private Long nom;
@@ -27,14 +29,10 @@ public class User
 	
 	@Column(nullable = false, unique = true, length = 10)
 	private String password;
-	
-	
-	 @OneToMany(cascade=CascadeType.ALL,mappedBy="user")
-	 List<Order> orderList;
 	 
 	
 	public User() {}
-	public User(Long id, String prenom, String nom, String email,String password)
+	public User(Long userId, String prenom, String nom, String email,String password)
 	{
 		
 		this.prenom= prenom;
@@ -43,13 +41,14 @@ public class User
 		this.password= password;
 	}
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	
+	
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 	public String getPrenom() {
 		return prenom;
 	}

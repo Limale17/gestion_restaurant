@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import sn.niit.restauranManagementApplication.domain.Produit;
 import sn.niit.restauranManagementApplication.service.CategorieService;
+import sn.niit.restauranManagementApplication.service.OrderService;
 import sn.niit.restauranManagementApplication.service.ProduitService;
 
 @Controller
@@ -20,6 +21,8 @@ public class ProduitController
 {
 	    @Autowired 
 	    ProduitService produitService;
+	    
+	    OrderService ordertService;
 	     
 	    @Autowired
 	    CategorieService categorieService;
@@ -28,6 +31,7 @@ public class ProduitController
 		public String showAllplat(Model model) 
 		{
 			model.addAttribute("produitList", produitService.getAllProduit());
+			model.addAttribute("produitService", produitService);
 			return"admin/produit-list";
 		}
 		
@@ -43,7 +47,7 @@ public class ProduitController
 		{
 			if(bindindResult.hasErrors()) 
 			{
-				return "admin/departement-new";
+				return "admin/produit-new";
 			}
 			else
 		   {
