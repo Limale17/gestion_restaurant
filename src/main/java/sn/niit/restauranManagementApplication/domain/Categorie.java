@@ -3,6 +3,7 @@ package sn.niit.restauranManagementApplication.domain;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,9 @@ public class Categorie
 	private String nom;
 	
 	private String description;
+	
+	@Column(columnDefinition = "MEDIUMBLOB")
+	private String image;
 	
 	@OneToMany(cascade=CascadeType.ALL,mappedBy="categorie")
     List<Produit> listProduit;
@@ -58,6 +62,23 @@ public class Categorie
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public List<Produit> getListProduit() {
+		return listProduit;
+	}
+
+	public void setListProduit(List<Produit> listProduit) {
+		this.listProduit = listProduit;
 	}
 
 	@Override

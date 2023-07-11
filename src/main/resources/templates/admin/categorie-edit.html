@@ -11,18 +11,23 @@
 				<h2>Modifier Un Catégorie</h2>
 				
 		   </div>
-		          <form action="" th:action="@{/categorie/update/{id}(id=${categorie.id})}" method="post" th:object="${categorie}">
+		          <form  th:action="@{/admin/categorie/update/{id}(id=${categorie.id})}" method="post" th:object= "${categorie}" enctype="multipart/form-data">
 		          <div class= "form-row mb-3">
-			          <label class = "form-label">Nom</label>
+			          <label class = "form-label">Nom*</label>
 			          <input class = "form-control" type="text" placeholder="Nom" th:field="*{nom}">
+			          <p class="alert alert-danger" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}">Nom</p>
 		          </div>
 		          
 		          <div>
 			          <label class = "form-label">Description</label>
 			          <input class = "form-control" type="text" placeholder="Description" th:field="*{description}">
 		          </div>
+		          <div>
+			          <label class = "form-label">Image</label>
+			          <input class = "form-control" type="file" placeholder="image" th:field="*{image}">
+		          </div>
 		              <button type="submit" class="btn btn-primary">Envoyer</button>
-		              <a th:href="@{/categorie/list}"  type="submit" class="btn btn-danger">Annuler</a>
+		              <a th:href="@{/admin/categorie/list}"  type="submit" class="btn btn-danger">Annuler</a>
 		          </form>
 		   
 			</div>

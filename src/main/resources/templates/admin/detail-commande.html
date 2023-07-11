@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate= "~{admin/layout/layout}">
+	<head>
+		<meta charset="utf-8"> 
+		<title>produit</title>
+		
+	</head>
+	<body>
+		<div layout:fragment="content"  style="padding-top: 20px;">
+			<div class="card">
+				<div class="card-header">
+					<h4>Details commande</h4>
+				</div>
+				<div class="card-body">
+					<div class="row">
+					  <div class="col-sm-6">
+					    <div class="card">
+					      <div class="card-body">
+					        <span class="card-title" style="font-size: 23px; padding-bottom: 20px; font-weight: bold;">Details client</span>
+					        
+								<table  class="card-text">
+									<tr>
+										<td style="font-size: 20px; padding: 5px;">Prenom:</td>
+										<td th:text="${customer.prenom}" style="font-size: 15px; padding-left: 20px;"></td>
+									</tr>
+									<tr>
+										<td style="font-size: 20px; padding: 5px;">Nom:</td>
+										<td th:text="${customer.nom}" style="font-size: 15px; padding-left: 20px;"></td>
+									</tr>
+									<tr>
+										<td style="font-size: 20px; padding: 5px;">Telephone:</td>
+										<td th:text="${customer.telephone}" style="font-size: 15px; padding-left: 20px;"></td>
+									</tr>
+									<tr>
+										<td style="font-size: 20px; padding: 5px;">Email:</td>
+										<td th:text="${customer.email}" style="font-size: 15px; padding-left: 20px;"></td>
+									</tr>
+									<tr>
+										<td style="font-size: 20px; padding: 5px;">Adresse:</td>
+										<td th:text="${customer.adresse}" style="font-size: 15px; padding-left: 20px;"></td>
+									</tr>
+								</table>
+							
+					      </div>
+					    </div>
+					  </div>
+					  <div class="col-sm-6">
+					    <div class="card">
+					      <div class="card-body">
+					        <p class="card-text">
+								<span>Date commande: </span>&nbsp;<span th:text="${commande.date}"></span><br>
+								
+							</p>
+							
+							    <form th:action="@{/admin/commande/changerEtat}" method="post">
+					                  <input type="hidden" th:value="${commande.id}"
+					                    name="id" />
+					                  <div class="input-group" style="padding-right: 20px;">
+					                   <span>Etat </span>&nbsp;
+					                    <button class="btn btn-primary" style="height: 35px; text-align: center; margin-left: 20px;"
+					                      type="submit" >
+					                      [[${commande.state}]]
+					                    </button>
+					                  </div>
+					                </form>
+					                
+					      </div>
+					      
+					      <table class="table table-bordered" style="margin: 20px; width: 90%;">
+					  		 <thead>
+								<tr>
+									<th>Produit</th> 
+									<th>Quantite</th>
+										        	
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="item : ${items}">
+									<td th:text="${item.product.name}"></td>
+									<td th:text="${item.quantity}"></td>
+								</tr>
+							</tbody>
+						 </table>
+					   </div>
+					 </div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

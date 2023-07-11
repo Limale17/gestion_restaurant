@@ -11,7 +11,7 @@
 				<h2>Créer Une Categorie</h2>
 				
 		   </div>
-		          <form action="" th:action="@{/categorie/save}" method="post" th:object= "${categorie}">
+		          <form action="" th:action="@{/admin/categorie/save}" method="post" th:object= "${categorie}" enctype="multipart/form-data">
 		          <div class= "form-row mb-3">
 			          <label class = "form-label">Nom*</label>
 			          <input class = "form-control" type="text" placeholder="Nom" th:field="*{nom}">
@@ -22,8 +22,12 @@
 			          <label class = "form-label">Description</label>
 			          <input class = "form-control" type="text" placeholder="Description" th:field="*{description}">
 		          </div>
+		          <div>
+			          <label class = "form-label">Image</label>
+			          <input class = "form-control" type="file" placeholder="image" name="image">
+		          </div>
 		              <button type="submit" class="btn btn-primary">Envoyer</button>
-		              <a th:href="@{/categorie/list}"  type="submit" class="btn btn-danger">Annuler</a>
+		              <a th:href="@{/admin/categorie/list}"  type="submit" class="btn btn-danger">Annuler</a>
 		          </form>
 		   
 			</div>

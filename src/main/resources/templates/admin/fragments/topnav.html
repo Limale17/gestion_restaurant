@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 	<title></title>
 	<meta charset="utf-8">
@@ -11,9 +12,14 @@
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">Systeme 3 Roches</a>
 			</div>
-			<form method="post" action="">
+			<div class="text-white" sec:authorize="isAuthenticated()">
+                <span sec:authentication="name"></span>
+                <span sec:authentication="principal.authorities"></span>
+             </div>
+			<form method="post" th:action="@{/logout}">
 				<button class="btn btn-link pull-right navbar-brand" type="submit">Déconnexion</button>
 			</form>
+			
 		</div>
 	</nav>
 </body>

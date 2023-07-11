@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate= "~{admin/layout/layout}">
+<head>
+	<meta charset="utf-8"> 
+	<title>users</title>
+</head>
+	<body>
+		<div layout:fragment="content">
+			<div class="contentheader border-bottom">
+				<h2 >Liste Des utilisateurs </h2>
+				<p> <a class="btn btn-success" th:href="@{/admin/user/new}">Nouveau</a></p>
+
+             
+		   </div>
+		   <div>
+				<div class="card-body">
+					<table class="table table-striped">
+					      <thead>
+					        <tr>
+					        	<th>Nom</th> 
+					        	<th>Prenom</th>
+					        	<th>E-mail</th>
+					        	<th>Role</th>
+					        	<th>Faire admin</th>
+					        </tr>
+					      </thead>
+					      <tbody>
+					       		<tr th:each="user : ${userList}">
+					       		
+					       			<td th:text="${user.nom}"></td>
+					       			<td th:text="${user.prenom}"></td>
+					       			<td th:text="${user.email}"></td>
+					       		
+					       			<td>
+					       				<th:block th:each="role : ${user.roles}">
+					       				[[${role.name}]]/
+					       				</th:block>
+					       			</td>
+					       			<td>
+					       			     
+					       			     <a th:href="@{/admin/user/faireAdmin/{id}(id=${user.userId})}" class= "text-primary"
+					       			    onclick= "confirm('Etes vous sûr de vouloir mettre cet utilisateur un administrateur?')"> 
+					       				 <i class="fa fa-check"></i>
+					       				  </a>
+					       			</td>
+					       			
+					       		</tr>
+					      </tbody>
+					</table>
+					
+					<!--  <div  th:if="${totalPages > 1}" >-->
+					<nav aria-label= "Navigation">
+						<ul class="pagination justify-content-center flex-wrap">
+							<li th:classappend="${pageCourante > 1 ? 'page-item': 'page-item disabled'}" >
+								<a class="page-link" aria-label="Previous" th:if="${pageCourante > 1}"
+								   th:href="@{'/admin/user/list/page/' + ${pageCourante -1}}"
+								   th:text="'&laquo;'"></a>
+								<span aria-hidden="true" th:unless="${pageCourante > 1}"></span>
+
+							</li>
+							<th:block th:if="${totalPages <= 10}">
+								<li th:each="i : ${#numbers.sequence(1, totalPages)}"
+									th:class="${pageCourante != i ? 'page-item': 'page-item active'}">
+									<a th:href="@{'/admin/user/list/page/' + ${i}}" class="page-link">[[${i}]]</a>
+								</li>
+							</th:block>
+							<th:block th:if="${totalPages > 10}">
+								<th:block th:if="${pageCourante <= 5 || pageCourante > page.getTotalPages() - 4 }">
+									<li th:each="i : ${#numbers.sequence(1, 5)}"
+										th:class="${pageCourante != i ? 'page-item': 'page-item active'}">
+										<a th:href="@{'/admin/user/list/page/' + ${i}}" class="page-link">[[${i}]]</a>
+									</li>
+									<a th:href="@{'/admin/user/list/page/' + 6}" class="page-link" th:text="${'...'}">...</a>
+									<li th:each="i : ${#numbers.sequence(page.getTotalPages() - 4, totalPages)}"
+										th:class="${pageCourante != i ? 'page-item': 'page-item active'}">
+										<a th:href="@{'/admin/user/list/page/' + ${i}}" class="page-link">[[${i}]]</a>
+									</li>
+
+								</th:block>
+								<th:block th:if="${pageCourante > 5 && pageCourante < page.getTotalPages() - 4}">
+									<a th:href="@{'/admin/user/list/page/' + ${page.getNumber() - 4}}" class="page-link" th:text="${'...'}">...</a>
+									<li th:each="i : ${#numbers.sequence(page.getNumber() - 4, page.getNumber() + 4)}"
+										th:class="${pageCourante != i ? 'page-item': 'page-item active'}">
+										<a th:href="@{'/admin/user/list/page/' + ${i}}" class="page-link">[[${i}]]</a>
+									</li>
+
+									<a th:href="@{'/admin/user/list/page/' + ${page.getNumber() + 5}}" class="page-link" th:text="${'...'}">...</a>
+								</th:block>
+							</th:block>
+							<li th:classappend="${pageCourante < totalPages ? 'page-item': 'page-item disabled'}">
+								<a class="page-link" aria-label="Next" th:if="${pageCourante < totalPages}"
+								   th:href="@{'/admin/user/list/page/' + ${page.getNumber()  + 1}}"
+								   th:text="'&raquo;'">&raquo;</a>
+								<span aria-hidden="true" th:unless="${pageCourante < totalPages}"></span>
+							</li>
+							<li th:classappend="${pageCourante < totalPages ? 'page-item': 'page-item disabled'}">
+								<a class="page-link" th:if="${pageCourante < totalPages}"
+								   th:href="@{'/admin/user/list/page/' + ${totalPages}}"
+								   th:text="Dernier">Dernier</a>
+								<span th:unless="${pageCourante < totalPages}"></span>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function clearSearch()
+			{
+				window.location = "[[@{/admin/user/list}]]";
+			}
+       </script>
+	</body>
+</html>

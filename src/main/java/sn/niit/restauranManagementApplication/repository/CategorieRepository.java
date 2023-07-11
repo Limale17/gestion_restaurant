@@ -9,6 +9,4 @@ import sn.niit.restauranManagementApplication.domain.Categorie;
 public interface CategorieRepository extends JpaRepository<Categorie, Long> 
 {
 
-	
-
 }

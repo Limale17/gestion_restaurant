@@ -9,6 +9,4 @@ import sn.niit.restauranManagementApplication.domain.User;
 public interface UserRepository extends JpaRepository<User, Long> 
 {
 	public User findByEmail(String email);
-	
-
 }

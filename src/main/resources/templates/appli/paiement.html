@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>chopping cart</title>
+     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:100,300,300i,400,500,600,700,900%7CRaleway:500">
+       
+        <link rel="stylesheet" th:href="@{/css/fonts.css}">
+        
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/webjars/font-awsome/5.11.2/css/all.min.css}">
+ 		<style type="text/css">
+    
+    @media (min-width: 1025px) {
+    .h-custom {
+    height: 100vh !important;
+    }
+    }
+  </style>
+</head>
+<body>
+<section class="h-100 h-custom" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card">
+          <div class="card-body p-4">
+
+            <div class="row">
+              <div class="col-lg-7">
+               
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <div>
+                    <p class="mb-1">Details panier</p>
+                  </div>
+                 
+                </div>
+               
+				<th:block th:each="cartItem : ${items}">
+					<div class="card mb-3">
+					 
+					  <div class="card-body">
+					    <div class="d-flex justify-content-between">
+					      <div class="d-flex flex-row align-items-center">
+					        <div>
+					          <img
+					            th:src="*{'data:image/jpeg;base64,'+{cartItem.product.image}}"
+					            
+					            class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+					        </div>
+					        <div class="ms-3">
+					          <h5>[[${cartItem.product.name}]]</h5>
+					          <p class="small mb-0">[[${cartItem.product.description}]]</p>
+					        </div>
+					      </div>
+					      <div class="d-flex flex-row align-items-center">
+					        <div style="width: 60px;">
+					          <h5 class="mb-0">[[${cartItem.quantity}]]</h5>
+					        </div>
+					        <div style="width: 80px;">
+					          <h5 class="mb-0">[[${cartItem.product.price
+					                * cartItem.quantity}]]</h5>
+					        </div>
+					      </div>
+					    </div>
+					    	
+					  </div>
+					  
+                </div>
+			</th:block>
+              </div>
+              <div class="col-lg-5">
+                <div class="card bg-primary text-white rounded-3">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                      <h5 class="mb-0">Details carte</h5>
+                      
+                    </div>
+
+                    <p class="small mb-2">Type de carte</p>
+                    <a href="#!" type="submit" class="text-white"><i
+                        class="fab fa-cc-mastercard fa-2x me-2"></i></a>
+                    <a href="#!" type="submit" class="text-white"><i
+                        class="fab fa-cc-visa fa-2x me-2"></i></a>
+                    <a href="#!" type="submit" class="text-white"><i
+                        class="fab fa-cc-amex fa-2x me-2"></i></a>
+                    <a href="#!" type="submit" class="text-white"><i class="fab fa-cc-paypal fa-2x"></i></a>
+
+                    <form class="mt-4" th:action="@{/confirm}" method="post" th:object= "${paiement}" enctype="multipart/form-data">
+                      <div class="form-outline form-white mb-4">
+                        <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
+                          placeholder="Nom sur la carte" name="proprietaire"/>
+                        <label class="form-label" for="typeName">Nom sur la carte</label>
+                      </div>
+
+                      <div class="form-outline form-white mb-4">
+                        <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
+                          placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" name="numeroCart"/>
+                        <label class="form-label" for="typeText">Numero de la carte</label>
+                      </div>
+
+                      <div class="row mb-4">
+                        <div class="col-md-6">
+                          <div class="form-outline form-white">
+                            <input type="text" id="typeExp" class="form-control form-control-lg"
+                              placeholder="MM/YYYY" size="7"  minlength="7" maxlength="7" name="expiration"/>
+                            <label class="form-label" for="typeExp">Date d'expiration</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-outline form-white">
+                            <input type="password" id="typeText" class="form-control form-control-lg"
+                              placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" name="cvv"/>
+                            <label class="form-label" for="typeText">Cvv</label>
+                          </div>
+                        </div>
+                      </div>
+
+                    
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between mb-4">
+                      <p class="mb-2">Total</p>
+                      <p class="mb-2">[[${shoppingCart.totalPrice}]]</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-info btn-block btn-lg">
+                      <div class="d-flex justify-content-between">
+                        <span>Payer<i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                      </div>
+                    </button>
+					</form>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script th:src="@{/webjars/bootstrap/5.1.3/bootstrap.bundle.js}"></script>
+<script th:src="@{/js/core.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

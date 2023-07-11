@@ -1,5 +1,6 @@
 package sn.niit.restauranManagementApplication.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -9,16 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Produit 
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	
 	@NotNull(message="Le nom du produit est obligatoire.")
 	@NotEmpty(message="Le nom du produit est obligatoire.")
@@ -29,39 +31,30 @@ public class Produit
 	@NotNull(message="Le nom du produit est obligatoire.") 
 	private Double price;
 	
+
+	@Column(columnDefinition = "MEDIUMBLOB")
 	private String image;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey= @ForeignKey(name="categorie_id"), name="categorie_id")
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Categorie categorie;
-	
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(foreignKey= @ForeignKey(name="orderItems.id"), name="orderItems.id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private OrderItems orderItems;
-	
-	
-	
-	public  Produit() {}
+	public Produit() {}
 
-	public Produit(long id, String name, String description, Double price,String image) 
-	{
-		super();
-		this.id = id;
+	public Produit(@NotEmpty(message = "Le nom du produit est obligatoire.") String name, String description,
+			Double price, String image) {
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.image = image;
 	}
-	
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -88,25 +81,6 @@ public class Produit
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
-
-	public Categorie getCategorie() {
-		return categorie;
-	}
-
-	public void setCategorie(Categorie categorie) {
-		this.categorie = categorie;
-	}
-	
-	
-	
-	public OrderItems getOrderItems () {
-		return orderItems;
-	}
-
-	public void setOrderItems (OrderItems order) {
-		this.orderItems = order;
-	}
 
 	public String getImage() {
 		return image;
@@ -116,9 +90,12 @@ public class Produit
 		this.image = image;
 	}
 
-	@Override
-	public String toString() {
-		return "Plat [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + "]";
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
 	}
 	
 }

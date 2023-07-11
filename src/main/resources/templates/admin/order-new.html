@@ -8,19 +8,24 @@
 	<body>
 		<div layout:fragment="content">
 			<div class="contentheader border-bottom">
-				<h2>Passer une commande</h2>
-				
-		   </div>
-		          <form action="" th:action="@{/orderItems/save}" method="post" th:object= "${orderItems}">
+				<h2 name="center">Nouvelle Commande</h2>
+		<form action="" th:action="@{/order/save}" method="post" th:object= "${order}">
 		          <div class= "form-row mb-3">
-			          <label class = "form-label">Client*</label>
-			          <input class = "form-control" type="text" placeholder="client" th:field="*{user}">
-			           <p class="alert alert-danger" th:if="${#fields.hasErrors('user')}" th:errors="*{user.prenom}">Client</p>
+			         <p>
+		            <label>Select Customer</label>
+		        </p>
+		        <p>
+		            <select name="user.id">
+		                <option th:each="user : ${users}"
+		                        th:value="${user.userId}"
+		                        th:text="${user.prenom}">Client</option>
+		            </select>
+		        </p>
 		          </div>
 		          
 		          <div class= "form-row mb-3">
 			          <label class = "form-label">Date</label>
-			          <input class = "form-control" type="text" placeholder="description" th:field="*{date}">
+			          <input class = "form-control" type="text" placeholder="date" th:field="*{date}">
 		          </div>
 		          <div class= "form-row mb-3">
 			          <label class = "form-label">Prix Toal</label>
@@ -31,13 +36,17 @@
 		          
 			              <div class= "form-row mb-3">
 			              
-					          <label class = "form-label">Produits</label>
-					          <select class= "form-select selectpicker" th:field="*{produit}" >
-					          
-					                   <option th:each="produit: ${produits}" th:value= "${produit.id}"
-					                            th:text="${produit.name}">
-					                    </option>
-					          </select>
+					          <p>
+		            <label>Chosir les produits</label>
+		        </p>
+		        <p>
+		            <select name="lineItem[0].produit.id">
+		                <option th:each="produit : ${produits}"
+		                        th:value="${produit.id}"
+		                        th:text="${produit.name}"></option>
+		            </select>
+		            <input type="text" name="lineItem[0].quantite" />
+		        </p>
 					          
 				          </div>
 		          
@@ -47,5 +56,8 @@
 		          </form>
 		   
 			</div>
+				
+		   </div>
+		   </div>
 		</body>
 </html>

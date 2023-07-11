@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
 import sn.niit.restauranManagementApplication.domain.Categorie;
 import sn.niit.restauranManagementApplication.repository.CategorieRepository;
 import sn.niit.restauranManagementApplication.service.CategorieService;
@@ -33,21 +34,22 @@ public class CategorieServiceImpl implements CategorieService
 
 
 	@Override
-	public Categorie getCategorieById(Long id)
+	public Optional<Categorie> getCategorieById(Long id)
 	{
-		 Categorie  categorie = null;
-		Optional<Categorie> optionalCategorie=  categorieRepository.findById(id);
-		if(!optionalCategorie.isEmpty()) 
-		{
-			categorie=  optionalCategorie.get();
-			
-		}
-		else 
-		{
-			throw new RuntimeException("Aucune categorie id = "+id+ "n'a ete trouve");
-		}
-		
-		 return categorie;
+//		 Categorie  categorie = null;
+//		Optional<Categorie> optionalCategorie=  categorieRepository.findById(id);
+//		if(!optionalCategorie.isEmpty()) 
+//		{
+//			categorie=  optionalCategorie.get();
+//			
+//		}
+//		else 
+//		{
+//			throw new RuntimeException("Aucune categorie id = "+id+ "n'a ete trouve");
+//		}
+//		
+//		 return categorie;
+		return categorieRepository.findById(id);
 	}
 
 	@Override

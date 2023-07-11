@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>chopping cart</title>
+     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:100,300,300i,400,500,600,700,900%7CRaleway:500">
+       
+        <link rel="stylesheet" th:href="@{/css/fonts.css}">
+        
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/webjars/font-awsome/5.11.2/css/all.min.css}">
+  <style type="text/css">
+    
+    @media (min-width: 1025px) {
+    .h-custom {
+    height: 100vh !important;
+    }
+    }
+  </style>
+</head>
+<body>
+<section class="h-100 h-custom" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card">
+          <div class="card-body p-4">
+
+            <div class="row">
+              <div class="col-lg-11">
+                <h5 class="mb-3"><a th:href="@{/menu}" class="text-body"><i
+                      class="fas fa-long-arrow-alt-left me-2"></i>Retour au menu</a></h5>
+                <hr>
+				
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <div>
+                    <p class="mb-1">Votre panier</p>
+                    <p class="mb-0">vous avez [[${nombre}]] produit(s) dans votre panier</p>
+                  </div>
+                 
+                </div>
+               
+				<th:block th:each="cartItem : ${items}">
+					<div class="card mb-3">
+					 
+					  <div class="card-body">
+					    <div class="d-flex justify-content-between">
+					      <div class="d-flex flex-row align-items-center">
+					        <div>
+					          <img
+					            th:src="*{'data:image/jpeg;base64,'+{cartItem.product.image}}"
+					            
+					            class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+					        </div>
+					        <div class="ms-3">
+					          <h5>[[${cartItem.product.name}]]</h5>
+					          <p class="small mb-0">[[${cartItem.product.description}]]</p>
+					        </div>
+					      </div>
+					      <div class="d-flex flex-row align-items-center">
+					        <form th:action="@{/updateShoppingCart}" method="post">
+					                  <input type="hidden" th:value="${cartItem.id}"
+					                    name="item_id" />
+					                  <div class="input-group" style="padding-right: 20px;">
+					                    <input type="number" name="quantity"
+					                      th:value="${cartItem.quantity}"
+					                      style="width: 50px;"
+					                      class="form-control round-input form-control-sm" />
+					                    <button class="btn btn-success btn-sm btn-custom"
+					                      type="submit">
+					                      <i class="fa fa-check"></i>
+					                    </button>
+					                  </div>
+					                </form>
+					        <div style="width: 80px;">
+					          <h5 class="mb-0">[[${cartItem.product.price
+					                * cartItem.quantity}]]</h5>
+					        </div>
+					        <a th:href="@{/removeCartItem/{id}(id = ${cartItem.id})}" style="color: rgb(128, 128, 128);"><i class="fa-solid fa-trash"></i></a>
+					      </div>
+					    </div>
+					    	
+					  </div>
+					  
+				
+                </div>
+
+
+			</th:block>
+              </div>
+           	<div>
+           		<a class="btn btn-info btn-block btn-lg" th:href="@{/checkout}">Payer</a>
+           	</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script th:src="@{/webjars/bootstrap/5.1.3/bootstrap.bundle.js}"></script>
+<script th:src="@{/js/core.min.js}"></script>
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

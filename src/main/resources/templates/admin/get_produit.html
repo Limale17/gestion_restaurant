@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate= "~{admin/layout/layout}">
+<head>
+	<meta charset="utf-8"> 
+	<title>produit</title>
+</head>
+	<body>
+		<div layout:fragment="content">
+			<div class="contentheader border-bottom">
+				<h2 >Liste Des Produits </h2>
+				<p> <a class="btn btn-success" th:href="@{/admin/produit/new}">Nouveau</a></p>
+
+              <div class="text-center">
+				<form th:action="@{/admin/produit/list}" method="get">
+					Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
+				    &nbsp;
+				    <input type="submit" value="Search" />
+				    &nbsp;
+				    <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+				</form>
+			  </div>
+		   </div>
+		   <div>
+				<div class="card-body">
+					<table class="table table-striped">
+					      <thead>
+					        <tr>
+					        	<th>Image</th> 
+					        	<th>Nom</th>
+					        	<th>Description</th>
+					        	<th>Prix</th> 
+					        	<th>Categorie</th>
+					        	<th>Action</th>
+					        	
+					        </tr>
+					      </thead>
+					      <tbody>
+					       		<tr th:each="produit : ${produitList}">
+					       		<td><img th:src="*{'data:image/jpeg;base64,'+{produit.image}}" style="width: 50px; height: 40px;"/></td>
+					       			<td th:text="${produit.name}">Nom</td>
+					       			<td th:text="${produit.description}">Description</td>
+					       			<td th:text="${produit.price}">price</td>
+					       			<td th:text="${produit.categorie.nom}">Categorie</td>
+					       			
+					       			<td>
+					       			     <a th:href="@{/admin/produit/edit/{id}(id=${produit.id})}" class= "text-primary">
+					       			     <i class = "fas fa-pencil-alt"></i></a>
+					       			     <a th:href="@{/admin/produit/delete/{id}(id=${produit.id})}" class= "text-danger"
+					       			     onclick= "confirm('Voulez vous vraiment supprimer?')"><i class = "fas fa-trash-alt"></i>
+					       			     </a>
+					       			</td>
+					       			
+					       		</tr>
+					      </tbody>
+					</table>
+					
+					
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function clearSearch()
+			{
+				window.location = "[[@{/admin/produit/list}]]";
+			}
+       </script>
+	</body>
+</html>

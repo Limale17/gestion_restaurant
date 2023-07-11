@@ -11,7 +11,7 @@
 				<h2>Créer un produit</h2>
 				
 		   </div>
-		          <form action="" th:action="@{/produit/save}" method="post" th:object= "${produit}">
+		          <form action="" th:action="@{/admin/produit/save}" method="post" th:object= "${produit}" enctype="multipart/form-data">
 		          <div class= "form-row mb-3">
 			          <label class = "form-label">Nom*</label>
 			          <input class = "form-control" type="text" placeholder="nom" th:field="*{name}">
@@ -25,7 +25,7 @@
 		          <div class= "form-row mb-3">
 			          <label class = "form-label">Prix*</label>
 			          <input class = "form-control" type="text" placeholder="Prix" th:field="*{price}">
-			           <p class="alert alert-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Nom</p>
+			           <p class="alert alert-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">prix</p>
 		          </div>
 		          
 		          
@@ -36,14 +36,19 @@
 					          
 					                   <option th:each="categorie: ${categories}" th:value= "${categorie.id}"
 					                            th:text="${categorie.nom}">
-					                    </option>
+					                   </option>
 					          </select>
 					          
 				          </div>
+				          
+				  <div class= "form-row mb-3">
+			          <label class = "form-label">Image</label>
+			          <input class = "form-control" type="file" placeholder="Image" name="image" >
+			       </div>
 		          
 		         
 		              <button type="submit" class="btn btn-primary">Envoyer</button>
-		              <a th:href="@{/produit/list}"  type="submit" class="btn btn-danger">Annuler</a>
+		              <a th:href="@{/admin/produit/list}"  type="submit" class="btn btn-danger">Annuler</a>
 		          </form>
 		   
 			</div>
