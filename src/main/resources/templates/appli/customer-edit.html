@@ -12,23 +12,19 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container" style="padding: 20px;">
   <div class="row col-md-8 offset-md-2">
     <div class="card">
       <div class="card-header">
         <h2 class="text-center">Modification</h2>
       </div>
-       <div th:if="${param.success}">
-        <div class="alert alert-info">
-          Modification reussite!
-        </div>
-      </div>
+       
       <div class="card-body">
         <form enctype="multipart/form-data"
                 method="post"
                 role="form"
-                th:object="${customer}"
-                th:action="@{/customer/update/{id}(id=${customer.id})}"
+                th:object="${user}"
+                th:action="@{/customer/update/{id}(id=${user.id})}"
                 
         >
           <div class="form-group mb-3">

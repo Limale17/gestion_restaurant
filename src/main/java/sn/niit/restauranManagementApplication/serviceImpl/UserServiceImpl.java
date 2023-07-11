@@ -93,11 +93,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void saveAdmin(User user) {
-		List<Role> roles = user.getRoles();
-		Role admin = roleRepository.findByName("ADMIN");
-		roles.add(admin);	
-		userRepository.save(user);
+		// TODO Auto-generated method stub
+		
 	}
+
+	
 
 	
 }

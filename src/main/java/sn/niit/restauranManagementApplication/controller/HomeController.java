@@ -81,47 +81,7 @@ public class HomeController
 		return "appli/detail_produit";
 	}
 	
-	@GetMapping("/login")
-	public String login()
-	{
-		return "admin/login";
-	}
-	
-	 // handler method to handle user registration form request
-    @GetMapping("/register")
-    public String showRegistrationForm(Model model){
-        // create model object to store form data
-        User user = new User();
-        model.addAttribute("user", user);
-        return "appli/register";
-    }
-   
 
-    // handler method to handle user registration form submit request
-    @PostMapping( value = "/save",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String registration(@Valid @ModelAttribute("user") User user,
-            BindingResult result,
-            Model model){
-    	User existingUser = userService.findUserByEmail(user.getEmail());
-
-        if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
-            result.rejectValue("email", null,
-                    "There is already an account registered with the same email");
-        }
-
-        if(result.hasErrors()){
-          model.addAttribute("user", user);
-          return "appli/register";
-      }
-
-      userService.saveUser(user);
-      return "redirect:/register?success";
-  }
-    
-	@GetMapping("/403")
-	public String errore403() {
-		return "403";
-	}
 	
 	
 }
